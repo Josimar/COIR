@@ -98,9 +98,9 @@ def btg_bmf(corretora,filename,item,log,page,control):
     #Verifica se a Nota de Corretagem já foi processada anteriormente
     if control == 2:   
         cpf = df['C.N.P.J/C.P.F'].iloc[1]
-        nome = conta + '_' + df_gastos['Data pregão'][0][6:10] + '_' + df_gastos['Data pregão'][0][3:5] + '_BMF.xlsx'
+        nome = conta + '_' + df_gastos['Data pregão'][0][6:10] + '_' + df_gastos['Data pregão'][0][3:5] + '_' + df_gastos['Data pregão'][0][0:2] + '_BMF.xlsx'
         current_path = './Resultado/'
-        folder_prefix = (cpf + '/' + corretora + '/' + df_gastos['Data pregão'][0][6:10])
+        folder_prefix = (cpf + '/' + corretora + '/' + df_gastos['Data pregão'][0][6:10] + '/' + df_gastos['Data pregão'][0][3:5])
         folder_path = join(current_path, folder_prefix)
         if exists(folder_path+'/'+nome):
             log.append(Utils.funcs.verifica_nota_corretagem(folder_path,nome,item))
@@ -202,7 +202,7 @@ def btg_bmf(corretora,filename,item,log,page,control):
             data = df['Data pregão'].iloc[current_row-2]
             if ano == '':    
                 cpf = df['C.N.P.J/C.P.F'].iloc[current_row-1]
-                nome = conta + '_' + data[6:10] + '_' + data[3:5] + '_BMF.xlsx'
+                nome = conta + '_' + data[6:10] + '_' + data[3:5] + '_' + data[0:2] + '_BMF.xlsx'
                 ano = data[6:10]
                 mes = data[3:5]
 
@@ -298,7 +298,7 @@ def btg_bmf(corretora,filename,item,log,page,control):
     
     # Cria o caminho completo de pastas/subpasta para salvar o resultado do processamento
     current_path = './Resultado/'
-    folder_prefix = cpf+'/'+corretora+'/'+ano
+    folder_prefix = cpf+'/'+corretora+'/'+ano+'/'+mes
     folder_path = join(current_path, folder_prefix)   
     if control == 2:
         log_move_resultado,pagebmf = Utils.funcs.move_resultado(folder_path,cpf,nome,item,pagebmf=1)
